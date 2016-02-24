@@ -176,9 +176,10 @@ var grid = new THREE.Line(gridGeometry,gridMaterial,THREE.LinePieces);
 // Create Solar System
 var geometry = new THREE.SphereGeometry( 5, 32, 32 );
 generateVertexColors( geometry );
-var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-var sun = new THREE.Mesh( geometry, material );
+var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
+var sun = new THREE.Mesh( geometry, normalMaterial );
 scene.add( sun );
+
 
 
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
@@ -191,6 +192,7 @@ var clock = new THREE.Clock(true);
 function updateSystem() 
 {
 	// ANIMATE YOUR SOLAR SYSTEM HERE.
+	sun.rotation.y+=0.01;
   
 }
 
