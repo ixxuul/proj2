@@ -174,35 +174,99 @@ var grid = new THREE.Line(gridGeometry,gridMaterial,THREE.LinePieces);
 
 
 // Create Solar System
-var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+var geometry = new THREE.SphereGeometry( 4, 32, 32 );
 generateVertexColors( geometry );
 var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
 var sun = new THREE.Mesh( geometry, normalMaterial );
-scene.add( sun );
+var sun1 = new THREE.Mesh( geometry, normalMaterial );
+var sun2 = new THREE.Mesh( geometry, normalMaterial );
+var sun3 = new THREE.Mesh( geometry, normalMaterial );
+var sun4 = new THREE.Mesh( geometry, normalMaterial );
+var sun5 = new THREE.Mesh( geometry, normalMaterial );
+var sun6 = new THREE.Mesh( geometry, normalMaterial );
+var sun7 = new THREE.Mesh( geometry, normalMaterial );
 
-var mercurygeometry = new THREE.SphereGeometry( 5, 32, 32 );
+scene.add( sun );
+scene.add( sun1 );
+scene.add( sun2 );
+scene.add( sun3 );
+scene.add( sun4 );
+scene.add( sun5 );
+scene.add( sun6 );
+scene.add( sun7 );
+
+
+
+var mercurygeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( mercurygeometry );
 var mercury = new THREE.Mesh( mercurygeometry, normalMaterial );
 scene.add( mercury );
-mercury.position.set(0,0,10);
+mercury.position.set(0,0,7);
 mercury.parent=sun;
 
 var venusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( venusgeometry );
 var venus = new THREE.Mesh( mercurygeometry, normalMaterial );
 scene.add(venus);
-venus.position.set(0,0,20);
-venus.parent=sun;
+venus.position.set(0,0,14);
+venus.parent=sun1;
+
+var earthgeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( earthgeometry );
+var earth = new THREE.Mesh( earthgeometry, normalMaterial );
+scene.add(earth);
+earth.position.set(0,0,21);
+earth.parent=sun2;
+
+// var moongeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
+// generateVertexColors( earthgeometry );
+// var moon = new THREE.Mesh( marsgeometry, normalMaterial );
+// scene.add(moon);
+// moon.position.set(0,0,22);
+// moon.parent=earth;
+
+var marsgeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( marsgeometry );
+var mars = new THREE.Mesh( marsgeometry, normalMaterial );
+scene.add(mars);
+mars.position.set(0,0,28);
+mars.parent=sun3;
+
+var jupitergeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( jupitergeometry );
+var jupiter = new THREE.Mesh( jupitergeometry, normalMaterial );
+scene.add(jupiter);
+jupiter.position.set(0,0,35);
+jupiter.parent=sun4;
+
+var saturngeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( saturngeometry );
+var saturn = new THREE.Mesh( saturngeometry, normalMaterial );
+scene.add(saturn);
+saturn.position.set(0,0,42);
+saturn.parent=sun5;
+
+var uranusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( uranusgeometry );
+var uranus = new THREE.Mesh( uranusgeometry, normalMaterial );
+scene.add(uranus);
+uranus.position.set(0,0,49);
+uranus.parent=sun6;
+
+var neptunegeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( neptunegeometry );
+var neptune = new THREE.Mesh( neptunegeometry, normalMaterial );
+scene.add(neptune);
+neptune.position.set(0,0,56);
+neptune.parent=sun7;
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
-
-
 
 
 
 // create line
 for (var j=1;j<9;j++){
 	var segcount = 32;
-	var radius = 10*j;
+	var radius = 7*j;
 	var linegeometry = new THREE.Geometry();
 	var linematerial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
 
@@ -226,8 +290,23 @@ function updateSystem()
 {
 	// ANIMATE YOUR SOLAR SYSTEM HERE.
 	sun.rotation.y+=0.005;
+	sun1.rotation.y+=0.006;
+	sun2.rotation.y+=0.008;
+	sun3.rotation.y+=0.01;
+	sun4.rotation.y+=0.003;
+	sun5.rotation.y+=0.001;
+	sun6.rotation.y+=0.012;
+	sun7.rotation.y+=0.009;
+
 	mercury.rotation.y+=0.03;
-  	venus.rotation.y=0.03;
+  	venus.rotation.y+=0.02;
+  	earth.rotation.y+=0.01;
+  	mars.rotation.y+=0.008;
+  	jupiter.rotation.y+=0.009;
+  	saturn.rotation.y+=0.04;
+  	uranus.rotation.y+=0.02;
+  	neptune.rotation.y+=0.004;
+
 }
 
 // LISTEN TO KEYBOARD
