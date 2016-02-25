@@ -196,6 +196,28 @@ venus.parent=sun;
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
 
 
+
+
+
+// create line
+for (var j=1;j<9;j++){
+	var segcount = 32;
+	var radius = 10*j;
+	var linegeometry = new THREE.Geometry();
+	var linematerial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
+
+	for (var i = 0; i <= segcount; i++) {
+    	var theta = (i / segcount) * Math.PI * 2;
+    	linegeometry.vertices.push(
+        	new THREE.Vector3(
+            	Math.cos(theta) * radius,0,
+            	Math.sin(theta) * radius
+            	));            
+	}
+	orbit3 = new THREE.Line(linegeometry, linematerial)
+	scene.add(orbit3);
+}
+
 //Note: Use of parent attribute IS allowed.
 //Hint: Keep hierarchies in mind! 
 
