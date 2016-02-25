@@ -180,8 +180,19 @@ var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe:
 var sun = new THREE.Mesh( geometry, normalMaterial );
 scene.add( sun );
 
+var mercurygeometry = new THREE.SphereGeometry( 5, 32, 32 );
+generateVertexColors( mercurygeometry );
+var mercury = new THREE.Mesh( mercurygeometry, normalMaterial );
+scene.add( mercury );
+mercury.position.set(0,0,10);
+mercury.parent=sun;
 
-
+var venusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
+generateVertexColors( venusgeometry );
+var venus = new THREE.Mesh( mercurygeometry, normalMaterial );
+scene.add(venus);
+venus.position.set(0,0,20);
+venus.parent=sun;
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
 
 
@@ -192,8 +203,9 @@ var clock = new THREE.Clock(true);
 function updateSystem() 
 {
 	// ANIMATE YOUR SOLAR SYSTEM HERE.
-	sun.rotation.y+=0.01;
-  
+	sun.rotation.y+=0.005;
+	mercury.rotation.y+=0.03;
+  	venus.rotation.y=0.03;
 }
 
 // LISTEN TO KEYBOARD
