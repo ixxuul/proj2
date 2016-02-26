@@ -174,12 +174,14 @@ var grid = new THREE.Line(gridGeometry,gridMaterial,THREE.LinePieces);
 
 
 // Create Solar System
-var geometry = new THREE.SphereGeometry( 4, 32, 32 );
+var geometry = new THREE.SphereGeometry( 3, 32, 32 );
 generateVertexColors( geometry );
+var centralgeometry = new THREE.SphereGeometry( 4, 32, 32 );
+generateVertexColors( centralgeometry );
 var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
 var photo1=THREE.ImageUtils.loadTexture('photo.jpg');
 var sunMaterial = new THREE.MeshBasicMaterial( {map:photo1} );
-var sun = new THREE.Mesh( geometry, sunMaterial );
+var sun = new THREE.Mesh( centralgeometry, sunMaterial );
 var sun1 = new THREE.Mesh( geometry, sunMaterial );
 var sun2 = new THREE.Mesh( geometry, sunMaterial );
 var sun3 = new THREE.Mesh( geometry, sunMaterial );
