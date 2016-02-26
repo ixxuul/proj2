@@ -206,21 +206,18 @@ var mercurygeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( mercurygeometry );
 var mercury = new THREE.Mesh( mercurygeometry, plantMaterial );
 scene.add( mercury );
-mercury.position.set(7,0,0);
 mercury.parent=sun;
 
 var venusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( venusgeometry );
 var venus = new THREE.Mesh( mercurygeometry, plantMaterial );
 scene.add(venus);
-venus.position.set(0,0,14);
 venus.parent=sun1;
 
 var earthgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( earthgeometry );
 var earth = new THREE.Mesh( earthgeometry, plantMaterial );
 scene.add(earth);
-earth.position.set(0,0,21);
 earth.parent=sun2;
 
 var moongeometry = new THREE.SphereGeometry( 1, 32, 32 );
@@ -234,35 +231,52 @@ var marsgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( marsgeometry );
 var mars = new THREE.Mesh( marsgeometry, plantMaterial );
 scene.add(mars);
-mars.position.set(0,0,28);
 mars.parent=sun3;
+
 
 var jupitergeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( jupitergeometry );
 var jupiter = new THREE.Mesh( jupitergeometry, plantMaterial );
 scene.add(jupiter);
-jupiter.position.set(0,0,35);
 jupiter.parent=sun4;
 
 var saturngeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( saturngeometry );
 var saturn = new THREE.Mesh( saturngeometry, plantMaterial );
 scene.add(saturn);
-saturn.position.set(0,0,42);
 saturn.parent=sun5;
+
+// Saturn's ring
+for (var ra=1;ra<100;ra++){
+var segcount = 32;
+var radius = 3+0.01*ra;
+var linegeometry = new THREE.Geometry();
+var linematerial = new THREE.LineBasicMaterial({ color: 0xFFFFFF});
+
+for (var i = 0; i <= segcount; i++) {
+   	var theta = (i / segcount) * Math.PI * 2;
+    linegeometry.vertices.push(
+    	new THREE.Vector3(
+            Math.cos(theta) * radius,0,
+            Math.sin(theta) * radius
+            ));            
+}
+saturnring = new THREE.Line(linegeometry, linematerial)
+scene.add(saturnring);
+saturnring.parent=sun5;
+saturnring.position.z=42;
+}
 
 var uranusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( uranusgeometry );
 var uranus = new THREE.Mesh( uranusgeometry, plantMaterial );
 scene.add(uranus);
-uranus.position.set(0,0,49);
 uranus.parent=sun6;
 
 var neptunegeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( neptunegeometry );
 var neptune = new THREE.Mesh( neptunegeometry, plantMaterial );
 scene.add(neptune);
-neptune.position.set(0,0,56);
 neptune.parent=sun7;
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
 
@@ -270,7 +284,7 @@ neptune.parent=sun7;
 
 // create line
 for (var j=1;j<9;j++){
-	var segcount = 32;
+	var segcount = 100;
 	var radius = 7*j;
 	var linegeometry = new THREE.Geometry();
 	var linematerial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
@@ -309,11 +323,22 @@ function updateSystem()
   	mars.rotation.y+=0.008;
   	jupiter.rotation.y+=0.009;
   	saturn.rotation.y+=0.04;
+  	//saturnring.rotation.y+=0.04;
   	uranus.rotation.y+=0.02;
   	neptune.rotation.y+=0.004;
 
   	moon.position.x=3+0;
   	moon.position.z=0+0;
+
+  	mercury.position.z=7;
+  	venus.position.z=14;
+  	earth.position.z=21;
+  	mars.position.z=28;
+  	jupiter.position.z=35;
+  	saturn.position.z=42;
+  	//saturnring.position.z=42;
+  	uranus.position.z=49;
+  	neptune.position.z=56;
 
 }
 
