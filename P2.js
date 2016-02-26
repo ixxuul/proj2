@@ -177,14 +177,16 @@ var grid = new THREE.Line(gridGeometry,gridMaterial,THREE.LinePieces);
 var geometry = new THREE.SphereGeometry( 4, 32, 32 );
 generateVertexColors( geometry );
 var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
-var sun = new THREE.Mesh( geometry, normalMaterial );
-var sun1 = new THREE.Mesh( geometry, normalMaterial );
-var sun2 = new THREE.Mesh( geometry, normalMaterial );
-var sun3 = new THREE.Mesh( geometry, normalMaterial );
-var sun4 = new THREE.Mesh( geometry, normalMaterial );
-var sun5 = new THREE.Mesh( geometry, normalMaterial );
-var sun6 = new THREE.Mesh( geometry, normalMaterial );
-var sun7 = new THREE.Mesh( geometry, normalMaterial );
+var photo1=THREE.ImageUtils.loadTexture('photo.jpg');
+var sunMaterial = new THREE.MeshBasicMaterial( {map:photo1} );
+var sun = new THREE.Mesh( geometry, sunMaterial );
+var sun1 = new THREE.Mesh( geometry, sunMaterial );
+var sun2 = new THREE.Mesh( geometry, sunMaterial );
+var sun3 = new THREE.Mesh( geometry, sunMaterial );
+var sun4 = new THREE.Mesh( geometry, sunMaterial );
+var sun5 = new THREE.Mesh( geometry, sunMaterial );
+var sun6 = new THREE.Mesh( geometry, sunMaterial );
+var sun7 = new THREE.Mesh( geometry, sunMaterial );
 
 scene.add( sun );
 scene.add( sun1 );
@@ -218,11 +220,11 @@ scene.add(earth);
 earth.position.set(0,0,21);
 earth.parent=sun2;
 
-// var moongeometry = new THREE.SphereGeometry( 1.5, 32, 32 );
-// generateVertexColors( earthgeometry );
-// var moon = new THREE.Mesh( marsgeometry, normalMaterial );
+// var moongeometry = new THREE.SphereGeometry( 1, 32, 32 );
+// generateVertexColors( moongeometry );
+// var moon = new THREE.Mesh( moongeometry, normalMaterial );
 // scene.add(moon);
-// moon.position.set(0,0,22);
+// moon.position.set(0,0,21);
 // moon.parent=earth;
 
 var marsgeometry = new THREE.SphereGeometry( 2, 32, 32 );
@@ -278,8 +280,8 @@ for (var j=1;j<9;j++){
             	Math.sin(theta) * radius
             	));            
 	}
-	orbit3 = new THREE.Line(linegeometry, linematerial)
-	scene.add(orbit3);
+	orbits = new THREE.Line(linegeometry, linematerial)
+	scene.add(orbits);
 }
 
 //Note: Use of parent attribute IS allowed.
@@ -300,7 +302,7 @@ function updateSystem()
 
 	mercury.rotation.y+=0.03;
   	venus.rotation.y+=0.02;
-  	earth.rotation.y+=0.01;
+  	earth.rotation.y+=0.001;
   	mars.rotation.y+=0.008;
   	jupiter.rotation.y+=0.009;
   	saturn.rotation.y+=0.04;
