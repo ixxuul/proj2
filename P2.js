@@ -200,66 +200,67 @@ scene.add( sun6 );
 scene.add( sun7 );
 
 
+var plantMaterial = new THREE.MeshPhongMaterial();
 
 var mercurygeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( mercurygeometry );
-var mercury = new THREE.Mesh( mercurygeometry, normalMaterial );
+var mercury = new THREE.Mesh( mercurygeometry, plantMaterial );
 scene.add( mercury );
-mercury.position.set(0,0,7);
+mercury.position.set(7,0,0);
 mercury.parent=sun;
 
 var venusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( venusgeometry );
-var venus = new THREE.Mesh( mercurygeometry, normalMaterial );
+var venus = new THREE.Mesh( mercurygeometry, plantMaterial );
 scene.add(venus);
 venus.position.set(0,0,14);
 venus.parent=sun1;
 
 var earthgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( earthgeometry );
-var earth = new THREE.Mesh( earthgeometry, normalMaterial );
+var earth = new THREE.Mesh( earthgeometry, plantMaterial );
 scene.add(earth);
 earth.position.set(0,0,21);
 earth.parent=sun2;
 
-// var moongeometry = new THREE.SphereGeometry( 1, 32, 32 );
-// generateVertexColors( moongeometry );
-// var moon = new THREE.Mesh( moongeometry, normalMaterial );
-// scene.add(moon);
-// moon.position.set(0,0,21);
-// moon.parent=earth;
+var moongeometry = new THREE.SphereGeometry( 1, 32, 32 );
+generateVertexColors( moongeometry );
+var moon = new THREE.Mesh( moongeometry, plantMaterial );
+scene.add(moon);
+moon.parent=earth;
+
 
 var marsgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( marsgeometry );
-var mars = new THREE.Mesh( marsgeometry, normalMaterial );
+var mars = new THREE.Mesh( marsgeometry, plantMaterial );
 scene.add(mars);
 mars.position.set(0,0,28);
 mars.parent=sun3;
 
 var jupitergeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( jupitergeometry );
-var jupiter = new THREE.Mesh( jupitergeometry, normalMaterial );
+var jupiter = new THREE.Mesh( jupitergeometry, plantMaterial );
 scene.add(jupiter);
 jupiter.position.set(0,0,35);
 jupiter.parent=sun4;
 
 var saturngeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( saturngeometry );
-var saturn = new THREE.Mesh( saturngeometry, normalMaterial );
+var saturn = new THREE.Mesh( saturngeometry, plantMaterial );
 scene.add(saturn);
 saturn.position.set(0,0,42);
 saturn.parent=sun5;
 
 var uranusgeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( uranusgeometry );
-var uranus = new THREE.Mesh( uranusgeometry, normalMaterial );
+var uranus = new THREE.Mesh( uranusgeometry, plantMaterial );
 scene.add(uranus);
 uranus.position.set(0,0,49);
 uranus.parent=sun6;
 
 var neptunegeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( neptunegeometry );
-var neptune = new THREE.Mesh( neptunegeometry, normalMaterial );
+var neptune = new THREE.Mesh( neptunegeometry, plantMaterial );
 scene.add(neptune);
 neptune.position.set(0,0,56);
 neptune.parent=sun7;
@@ -304,12 +305,15 @@ function updateSystem()
 
 	mercury.rotation.y+=0.03;
   	venus.rotation.y+=0.02;
-  	earth.rotation.y+=0.001;
+  	earth.rotation.y+=0.1;
   	mars.rotation.y+=0.008;
   	jupiter.rotation.y+=0.009;
   	saturn.rotation.y+=0.04;
   	uranus.rotation.y+=0.02;
   	neptune.rotation.y+=0.004;
+
+  	moon.position.x=3+0;
+  	moon.position.z=0+0;
 
 }
 
