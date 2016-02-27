@@ -305,6 +305,7 @@ for (var j=1;j<9;j++){
 //Hint: Keep hierarchies in mind! 
 
 var clock = new THREE.Clock(true);
+console.log(clock);
 function updateSystem() 
 {
 	// ANIMATE YOUR SOLAR SYSTEM HERE.
@@ -323,7 +324,6 @@ function updateSystem()
   	mars.rotation.y+=0.008;
   	jupiter.rotation.y+=0.009;
   	saturn.rotation.y+=0.04;
-  	//saturnring.rotation.y+=0.04;
   	uranus.rotation.y+=0.02;
   	neptune.rotation.y+=0.004;
 
@@ -336,29 +336,10 @@ function updateSystem()
   	mars.position.z=28;
   	jupiter.position.z=35;
   	saturn.position.z=42;
-  	//saturnring.position.z=42;
   	uranus.position.z=49;
   	neptune.position.z=56;
 
 }
-
-// LISTEN TO KEYBOARD
-// Hint: Pay careful attention to how the keys already specified work!
-var keyboard = new THREEx.KeyboardState();
-var grid_state = false;
-		
-function onKeyDown(event)
-{
-	// TO-DO: BIND KEYS TO YOUR CONTROLS	  
-  if(keyboard.eventMatches(event,"shift+g"))
-  {  // Reveal/Hide helper grid
-    grid_state = !grid_state;
-    grid_state? scene.add(grid) : scene.remove(grid);
-  }   
-
-}
-keyboard.domElement.addEventListener('keydown', onKeyDown );
-		
 
 // SETUP UPDATE CALL-BACK
 // Hint: It is useful to understand what is being updated here, the effect, and why.
@@ -366,7 +347,7 @@ keyboard.domElement.addEventListener('keydown', onKeyDown );
 function update() {
   updateSystem();
 
-  requestAnimationFrame(update);
+  framean=requestAnimationFrame(update);
   
   // UPDATES THE MULTIPLE CAMERAS IN THE SIMULATION
   for ( var ii = 0; ii < views.length; ++ii ) 
@@ -392,5 +373,35 @@ function update() {
 		renderer.render( scene, camera_ );
 	}
 }
+
+
+// LISTEN TO KEYBOARD
+// Hint: Pay careful attention to how the keys already specified work!
+var keyboard = new THREEx.KeyboardState();
+var grid_state = false;
+var spacecounter = 0;
+
+function onKeyDown(event)
+{
+	// TO-DO: BIND KEYS TO YOUR CONTROLS	  
+  if(keyboard.eventMatches(event,"shift+g"))
+  {  // Reveal/Hide helper grid
+    grid_state = !grid_state;
+    grid_state? scene.add(grid) : scene.remove(grid);
+  }
+
+ else if (keyboard.eventMatches(event,"space") && spacecounter === 0){
+ 	cancelAnimationFrame(framean);
+ 	spacecounter=1;
+ }   
+
+ else if (keyboard.eventMatches(event,"space") && spacecounter === 1){
+ 	requestAnimationFrame(update);
+ 	spacecounter=0;
+ }
+
+}
+keyboard.domElement.addEventListener('keydown', onKeyDown );
+		
 
 update();
