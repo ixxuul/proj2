@@ -178,10 +178,13 @@ var geometry = new THREE.SphereGeometry( 3, 32, 32 );
 generateVertexColors( geometry );
 var centralgeometry = new THREE.SphereGeometry( 4, 32, 32 );
 generateVertexColors( centralgeometry );
-var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
+//var normalMaterial = new THREE.MeshNormalMaterial(  {color: 0xffaa00, wireframe: true});
+var wireframeMaterial = new THREE.MeshBasicMaterial( { color: 0xffaa00, wireframe: true } );
+var wingMaterial = new THREE.MeshBasicMaterial( { color: 0xFFFFFF, wireframe: true } );
+
 var photo1=THREE.ImageUtils.loadTexture('photo.jpg');
 var sunMaterial = new THREE.MeshBasicMaterial( {map:photo1} );
-var sun = new THREE.Mesh( centralgeometry, sunMaterial );
+var sun = new THREE.Mesh( centralgeometry, wireframeMaterial );
 var sun1 = new THREE.Mesh( geometry, sunMaterial );
 var sun2 = new THREE.Mesh( geometry, sunMaterial );
 var sun3 = new THREE.Mesh( geometry, sunMaterial );
@@ -200,7 +203,7 @@ scene.add( sun6 );
 scene.add( sun7 );
 
 
-var plantMaterial = new THREE.MeshPhongMaterial();
+var plantMaterial = new THREE.MeshPhongMaterial({ color: 0xFFFFFF, specular: 0xffaa00, shading: THREE.FlatShading });
 
 var mercurygeometry = new THREE.SphereGeometry( 2, 32, 32 );
 generateVertexColors( mercurygeometry );
@@ -220,7 +223,7 @@ var earth = new THREE.Mesh( earthgeometry, plantMaterial );
 scene.add(earth);
 earth.parent=sun2;
 
-var moongeometry = new THREE.SphereGeometry( 1, 32, 32 );
+var moongeometry = new THREE.SphereGeometry( 0.5, 32, 32 );
 generateVertexColors( moongeometry );
 var moon = new THREE.Mesh( moongeometry, plantMaterial );
 scene.add(moon);
@@ -278,9 +281,41 @@ generateVertexColors( neptunegeometry );
 var neptune = new THREE.Mesh( neptunegeometry, plantMaterial );
 scene.add(neptune);
 neptune.parent=sun7;
+
+
+//Spaceship
+var texture = new THREE.Texture( generateTexture() );
+texture.needsUpdate = true;
+
+var spacegeometry = new THREE.TetrahedronGeometry(2,0);
+spacegeometry.vertices[1] = new THREE.Vector3(-5,-5,1);
+generateVertexColors( spacegeometry );
+
+//var space = new THREE.Mesh(spacegeometry, new THREE.MeshBasicMaterial( { map: texture, transparent: true, morphTargets: true} ));
+var space = new THREE.Mesh(spacegeometry, wingMaterial);
+space.rotation.x = Math.PI/2;
+  	space.position.x=15;
+  	space.position.z=17;
+  	space.position.y=15;
+scene.add(space);
+space.parent=sun7;
+
+//space wings
+var winggeometry = new THREE.BoxGeometry( 1, 1, 1 );
+var cube = new THREE.Mesh( winggeometry, wingMaterial);
+scene.add( cube );
+cube.parent=space;
+cube.position.x=1;
+cube.position.y=-1;
+
+var cube2 = cube.clone();
+scene.add(cube2);
+cube2.parent=space;
+cube2.position.x=-0.5;
+cube2.position.y=1;
+
+
 //TO-DO: INITIALIZE THE REST OF YOUR PLANETS
-
-
 
 // create line
 for (var j=1;j<9;j++){
@@ -327,6 +362,7 @@ function updateSystem()
   	uranus.rotation.y+=0.02;
   	neptune.rotation.y+=0.004;
 
+  	//position
   	moon.position.x=3+0;
   	moon.position.z=0+0;
 
@@ -401,7 +437,33 @@ function onKeyDown(event)
  }
 
 }
-keyboard.domElement.addEventListener('keydown', onKeyDown );
-		
 
+//Taken from threejs.org/examples/webgl_materials.html for texture of spaceship
+function generateTexture() {
+
+	var canvas = document.createElement( 'canvas' );
+	canvas.width = 256;
+	canvas.height = 256;
+
+	var context = canvas.getContext( '2d' );
+	var image = context.getImageData( 0, 0, 256, 256 );
+
+	var x = 0, y = 0;
+	for ( var i = 0, j = 0, l = image.data.length; i < l; i += 4, j ++ ) {
+	x = j % 256;
+	y = x == 0 ? y + 1 : y;
+	image.data[ i ] = 255;
+	image.data[ i + 1 ] = 255;
+	image.data[ i + 2 ] = 255;
+	image.data[ i + 3 ] = Math.floor( x ^ y );
+
+	}
+
+	context.putImageData( image, 0, 0 );
+	return canvas;
+
+}
+
+
+keyboard.domElement.addEventListener('keydown', onKeyDown );
 update();
